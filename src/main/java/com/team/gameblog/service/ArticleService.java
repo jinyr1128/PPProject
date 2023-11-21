@@ -1,25 +1,40 @@
 package com.team.gameblog.service;
 
-import com.team.gameblog.dto.article.MyArticleResponseDto;
-import com.team.gameblog.dto.article.SelectArticleResponseDto;
+import com.team.gameblog.entity.Article;
+import com.team.gameblog.repository.ArticleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ArticleService {
-    public SelectArticleResponseDto createArticle() {
+    @Autowired
+    private ArticleRepository articleRepository;
+
+    public List<Article> getAllArticles() {
+        return articleRepository.findAll();
     }
 
-    public List<MyArticleResponseDto> getMyArticles() {
+    public Optional<Article> getArticleById(Long id) {
+        return articleRepository.findById(id);
     }
 
-    public SelectArticleResponseDto getArticle() {
+    public Article saveArticle(Article article) {
+        return articleRepository.save(article);
     }
 
-    public SelectArticleResponseDto updateMyArticle() {
+    public Optional<Article> updateArticle(Long id, Article articleDetails) {
+        return articleRepository.findById(id)
+                .map(article -> {
+                    article.setTitle(articleDetails.getTitle());
+                    article.setContent(articleDetails.getContent());
+                    return articleRepository.save(article);
+                });
     }
 
-    public void deleteMyArticle() {
+    public void deleteArticle(Long id) {
+        articleRepository.deleteById(id);
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//html페이지 자체 리턴 안할경우 @RestController 변경
+//html페이지 자체 리턴 안할경우 @RestController 변경???????
 @Controller
 @RequestMapping("/api")
 @RequiredArgsConstructor

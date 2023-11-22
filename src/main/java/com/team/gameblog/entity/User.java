@@ -25,9 +25,13 @@ public class User {
     @Column(nullable = false, length = 100)
     private String password;
 
+    @Column(nullable = false, length = 300)
+    private String introduction;
+
     public User(SignupRequestDto requestDto, String password) {
         this.username = requestDto.getUsername();
         this.email = requestDto.getEmail();
         this.password = password;
+        this.introduction = requestDto.getProfile();
     }
 }

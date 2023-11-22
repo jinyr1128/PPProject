@@ -1,10 +1,11 @@
 package com.team.gameblog.controller;
 
-import com.team.gameblog.dto.user.ProfileResponseDto;
 import com.team.gameblog.dto.user.SignupRequestDto;
 import com.team.gameblog.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +19,14 @@ public class UserController {
 
     //회원가입
     @PostMapping("/user/signup")
-    public void signup(){
+    public ResponseEntity<?> signup(@RequestBody @Valid SignupRequestDto requestDto, BindingResult bindingResult){
 
-        userService.signup();
+        if (bindingResult.hasErrors()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getFieldErrors());
+        }
+
+        userService.signup(requestDto);
+        return ResponseEntity.ok("가입완료");
 
     }
 
@@ -44,17 +50,6 @@ public class UserController {
         return "";
     }
 
-    //프로필 생성
-    @PostMapping("/profile")
-    public ProfileResponseDto createProfile(){
-        return userService.createProfile();
-    }
-
-    //프로필 수정
-    @PutMapping("/profile")
-    public ProfileResponseDto updateProfile(){
-        return userService.updateProfile();
-    }
 
 
 }

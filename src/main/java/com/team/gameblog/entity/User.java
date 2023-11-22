@@ -1,5 +1,6 @@
 package com.team.gameblog.entity;
 
+import com.team.gameblog.dto.user.SignupRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,5 +25,15 @@ public class User {
     @Column(nullable = false, length = 100)
     private String password;
 
+    @Column(length = 200)
+    private String profile;
 
+
+    public User(SignupRequestDto requestDto, String password) {
+        this.username = requestDto.getUsername();
+        this.email = requestDto.getEmail();
+        this.password = password;
+        this.profile = requestDto.getProfile();
+
+    }
 }

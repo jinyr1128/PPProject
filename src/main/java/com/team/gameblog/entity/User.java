@@ -29,7 +29,5 @@ public class User {
         this.username = requestDto.getUsername();
         this.email = requestDto.getEmail();
         this.password = password;
-        this.profile = requestDto.getProfile();
-
     }
 }

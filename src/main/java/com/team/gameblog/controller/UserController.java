@@ -54,31 +54,8 @@ public class UserController {
     }
 
     //프로필 생성
-    @PostMapping("/profile")
-    public ProfileResponseDto createProfile(){
-        return userService.createProfile();
-    }
-
-    //프로필 수정
-    @PutMapping("/{id}/profile")
-    public ResponseEntity<User> updateProfile(@PathVariable Long id,
-                                              @RequestParam(required = false) String name,
-                                              @RequestParam(required = false) String bio) {
-        return userService.updateProfile(id, name, bio)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
-    }
-    @PutMapping("/{id}/password")
-    public ResponseEntity<?> updatePassword(@PathVariable Long id,
-                                            @RequestParam String oldPassword,
-                                            @RequestParam String newPassword) {
-        boolean isUpdated = userService.updatePassword(id, oldPassword, newPassword);
-        if (isUpdated) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.badRequest().body("Invalid password or user not found");
-        }
-    }
-
-
+//    @PostMapping("/profile")
+//    public PorofileResponseDto createPrfile(){
+//        return userService.createProfile();
+//    }
 }

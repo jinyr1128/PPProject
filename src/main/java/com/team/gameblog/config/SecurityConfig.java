@@ -1,8 +1,8 @@
 package com.team.gameblog.config;
 
+
 import com.team.gameblog.config.jwt.JwtAuthenticationFilter;
 import com.team.gameblog.config.jwt.JwtAuthorizationFilter;
-import com.team.gameblog.config.jwt.JwtExceptionFilter;
 import com.team.gameblog.config.jwt.JwtUtil;
 import com.team.gameblog.security.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -51,11 +51,6 @@ public class SecurityConfig {
         return new JwtAuthorizationFilter(jwtUtil, userDetailsService);
     }
 
-    @Bean
-    public JwtExceptionFilter jwtExceptionFilter(){
-        return new JwtExceptionFilter(jwtUtil);
-    }
-
 
 
     @Bean
@@ -86,9 +81,4 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-
-
-
-
 }

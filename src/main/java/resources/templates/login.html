@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PlayPalace - Login</title>
+  <link rel="stylesheet" href="../static/css/login.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div class="wrapper">
+  <!-- 생략 -->
+
+  <div class="sign-up-container">
+    <form id="signupForm">
+      <h1>Create Account</h1>
+      <input type="text" id="signupName" placeholder="Name">
+      <input type="email" id="signupEmail" placeholder="Email">
+      <input type="password" id="signupPassword" placeholder="Password">
+      <button type="button" onclick="signup()">Sign Up</button>
+    </form>
+  </div>
+
+  <div class="sign-in-container">
+    <form id="signinForm">
+      <h1>Sign In</h1>
+      <input type="email" id="signinEmail" placeholder="Email">
+      <input type="password" id="signinPassword" placeholder="Password">
+      <button type="button" onclick="signin()">Sign In</button>
+    </form>
+  </div>
+
+  <!-- 생략 -->
+</div>
+
+<script>
+  function signup() {
+    var name = $("#signupName").val();
+    var email = $("#signupEmail").val();
+    var password = $("#signupPassword").val();
+    // AJAX 요청으로 회원가입 정보 전송
+    $.ajax({
+      url: '/api/auth/register',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({ name: name, email: email, password: password }),
+      success: function(response) {
+        // 성공 처리
+      },
+      error: function(error) {
+        // 오류 처리
+      }
+    });
+  }
+
+  function signin() {
+    var email = $("#signinEmail").val();
+    var password = $("#signinPassword").val();
+    // AJAX 요청으로 로그인 정보 전송
+    $.ajax({
+      url: '/api/auth/login',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({ email: email, password: password }),
+      success: function(response) {
+        // 성공 처리
+      },
+      error: function(error) {
+        // 오류 처리
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,8 +1,10 @@
 package com.team.gameblog.service;
 
+import com.team.gameblog.dto.user.ProfileRequestDto;
 import com.team.gameblog.dto.user.SignupRequestDto;
 import com.team.gameblog.entity.User;
 import com.team.gameblog.repository.UserRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,9 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UserService {
+
+}
+
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -37,12 +42,22 @@ public class UserService {
 
         User user = new User(requestDto,password);
 
-
+        userRepository.save(user);
     }
 
-    public ProfileResponseDto createProfile() {
-    }
 
-    public ProfileResponseDto updateProfile() {
+    public void updateProfile(Long id, @Valid ProfileRequestDto requestDto, User user) {
+
+        User findUser = userRepository.findById(id).orElseThrow(()->
+                new IllegalArgumentException("해당 유저는 없습니다")
+        );
+
+        if(!findUser.getUsername().equals(user.getUsername())) {
+
+
+        }
+
+
     }
 }
+

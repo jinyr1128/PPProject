@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "articles")
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,15 +18,8 @@ public class Article {
     @Column(nullable = false)
     private String content;
 
-    @Column(nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    @Column(nullable = true)
-    private LocalDateTime updatedAt;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User author;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user; // 게시물 작성자
 
     public Long getId() {
         return id;
@@ -53,27 +45,11 @@ public class Article {
         this.content = content;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public User getUser() {
+        return user;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

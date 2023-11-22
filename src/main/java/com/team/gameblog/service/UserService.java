@@ -3,9 +3,11 @@ package com.team.gameblog.service;
 import com.team.gameblog.dto.user.ProfileRequestDto;
 import com.team.gameblog.dto.user.SignupRequestDto;
 import com.team.gameblog.entity.User;
+import com.team.gameblog.exception.CustomException;
 import com.team.gameblog.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -46,14 +48,14 @@ public class UserService {
     }
 
 
-    public void updateProfile(Long id, @Valid ProfileRequestDto requestDto, User user) {
+    public void updateProfile(Long id, @Valid ProfileRequestDto requestDto, User user) throws CustomException {
 
         User findUser = userRepository.findById(id).orElseThrow(()->
                 new IllegalArgumentException("해당 유저는 없습니다")
         );
 
         if(!findUser.getUsername().equals(user.getUsername())) {
-
+            throw new CustomException(HttpStatus.BAD_REQUEST,"해당 프로필은 본인 프로필 아닙니다.");
 
         }
 

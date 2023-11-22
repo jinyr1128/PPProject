@@ -1,7 +1,7 @@
 package com.team.gameblog.security;
 
 import com.team.gameblog.entity.User;
-import com.team.gameblog.repository.UserRespository;
+import com.team.gameblog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl  implements UserDetailsService {
 
-    private final UserRespository userRespository;
+    private final UserRepository userRespository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

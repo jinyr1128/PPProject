@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PlayPalace - Home</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../../../임시%20HTML폴더/css/play_styles.css">
+    <style>
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .post {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>PlayPalace</h1>
+        <nav>
+            <button onclick="location.href='login.html'">Login</button>
+        </nav>
+    </header>
+    <main>
+        <!-- 예시 게시물 -->
+        <div class="post" onclick="location.href='/post/1'">
+            <h2>Post Title 1</h2>
+        </div>
+        <!-- 추가 게시물 -->
+        <div class="post" onclick="location.href='/post/2'">
+            <h2>Post Title 2</h2>
+        </div>
+    </main>
+    <footer>
+        <p>© 2023 PlayPalace. All rights reserved.</p>
+    </footer>
+</body>
+</html>

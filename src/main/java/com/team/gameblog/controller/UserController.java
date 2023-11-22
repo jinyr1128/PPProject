@@ -2,9 +2,11 @@ package com.team.gameblog.controller;
 
 import com.team.gameblog.dto.user.ProfileResponseDto;
 import com.team.gameblog.dto.user.SignupRequestDto;
+import com.team.gameblog.entity.User;
 import com.team.gameblog.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -51,10 +53,24 @@ public class UserController {
     }
 
     //프로필 수정
-    @PutMapping("/profile")
-    public ProfileResponseDto updateProfile(){
-        return userService.updateProfile();
+    @PutMapping("/{id}/profile")
+    public ResponseEntity<User> updateProfile(@PathVariable Long id,
+                                              @RequestParam(required = false) String name,
+                                              @RequestParam(required = false) String bio) {
+        return userService.updateProfile(id, name, bio)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
+    @PutMapping("/{id}/password")
+    public ResponseEntity<?> updatePassword(@PathVariable Long id,
+                                            @RequestParam String oldPassword,
+                                            @RequestParam String newPassword) {
+        boolean isUpdated = userService.updatePassword(id, oldPassword, newPassword);
+        if (isUpdated) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().body("Invalid password or user not found");
+        }
+    }
 
 }

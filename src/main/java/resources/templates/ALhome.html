@@ -2,27 +2,18 @@
 <html>
 <head>
     <title>PlayPalace - Home</title>
-
-    <style>
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .post {
-            cursor: pointer;
-        }
-    </style>
     <link rel="stylesheet" href="../static/css/play_styles.css">
 </head>
 <body>
     <header>
         <h1>PlayPalace</h1>
         <nav>
-            <button onclick="location.href='login.html'">Login</button>
+            <button onclick="location.href='created.html'">Create Post</button>
+            <button onclick="location.href='profile.html'">Profile</button>
         </nav>
     </header>
     <main>
+        <!-- 게시물 표시 -->
         <!-- 예시 게시물 -->
         <div class="post" onclick="location.href='/post/1'">
             <h2>Post Title 1</h2>

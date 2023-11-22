@@ -24,5 +24,11 @@ public class User {
     @Column(nullable = false, length = 100)
     private String password;
 
+    @Column(nullable = true)
+    private String name;
+
+    @Column(nullable = true, length = 255)
+    private String bio;
+
 
 }

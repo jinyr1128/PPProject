@@ -1,5 +1,6 @@
 package com.team.gameblog.config;
 
+
 import com.team.gameblog.config.jwt.JwtAuthenticationFilter;
 import com.team.gameblog.config.jwt.JwtAuthorizationFilter;
 import com.team.gameblog.config.jwt.JwtExceptionFilter;
@@ -86,9 +87,4 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-
-
-
-
 }

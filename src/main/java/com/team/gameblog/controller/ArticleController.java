@@ -1,61 +1,47 @@
 package com.team.gameblog.controller;
 
-import com.team.gameblog.dto.article.MyArticleResponseDto;
-import com.team.gameblog.dto.article.SelectArticleResponseDto;
+import com.team.gameblog.entity.Article;
 import com.team.gameblog.service.ArticleService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
-//html페이지 자체 리턴 안할경우 @RestController 변경???????
-@Controller
-@RequestMapping("/api")
-@RequiredArgsConstructor
+@RestController
+@RequestMapping("/api/articles")
 public class ArticleController {
+    @Autowired
+    private ArticleService articleService;
 
-    private final ArticleService articleService;
-
-    //글 생성
-    @PostMapping("/articles")
-    public SelectArticleResponseDto createArticle(){
-
-        return articleService.createArticle();
-
+    @GetMapping
+    public List<Article> getAllArticles() {
+        return articleService.getAllArticles();
     }
 
-    // MY글 전체 조회
-    @GetMapping("/articles")
-    public List<MyArticleResponseDto> getMyArticles(){
-
-        return articleService.getMyArticles();
-
+    @GetMapping("/{id}")
+    public ResponseEntity<Article> getArticleById(@PathVariable Long id) {
+        return articleService.getArticleById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // 특정글 조회
-    @GetMapping("/articles/{id}")
-    public SelectArticleResponseDto getArticle(){
-
-        return articleService.getArticle();
-
+    @PostMapping
+    public Article createArticle(@RequestBody Article article) {
+        return articleService.saveArticle(article);
     }
 
-    // MY글 수정
-    @PutMapping("/articles/{id}")
-    public SelectArticleResponseDto updateMyArticle() {
-
-        return articleService.updateMyArticle();
-
+    @PutMapping("/{id}")
+    public ResponseEntity<Article> updateArticle(@PathVariable Long id, @RequestBody Article articleDetails) {
+        return articleService.updateArticle(id, articleDetails)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // My글 삭제
-    @DeleteMapping("/articles/{id}")
-    public void deleteMyArticle(){
-
-        articleService.deleteMyArticle();
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteArticle(@PathVariable Long id) {
+        articleService.deleteArticle(id);
+        return ResponseEntity.ok().build();
     }
-
-
 }

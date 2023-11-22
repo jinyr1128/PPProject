@@ -25,10 +25,6 @@ public class User {
     @Column(nullable = false, length = 100)
     private String password;
 
-    @Column(length = 200)
-    private String profile;
-
-
     public User(SignupRequestDto requestDto, String password) {
         this.username = requestDto.getUsername();
         this.email = requestDto.getEmail();

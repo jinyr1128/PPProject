@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Table(name = "users")
 @NoArgsConstructor
 @Getter
@@ -28,6 +31,13 @@ public class User {
 
     @Column(nullable = false, length = 300)
     private String introduction;
+
+    @OneToMany(mappedBy = "user")
+    private List<Article> articleList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Comment> commentList = new ArrayList<>();
+
 
     public User(SignupRequestDto requestDto, String password) {
         this.username = requestDto.getUsername();

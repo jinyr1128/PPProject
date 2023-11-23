@@ -1,5 +1,6 @@
 package com.team.gameblog.entity;
 
+import com.team.gameblog.dto.user.ProfileRequestDto;
 import com.team.gameblog.dto.user.SignupRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -33,5 +34,15 @@ public class User {
         this.email = requestDto.getEmail();
         this.password = password;
         this.introduction = requestDto.getProfile();
+    }
+
+    public void profileUpdate(ProfileRequestDto requestDto) {
+        this.username = requestDto.getUsername();
+        this.email = requestDto.getEmail();
+        this.introduction = requestDto.getIntroduction();
+    }
+
+    public void passwordUpdate(String password) {
+        this.password = password;
     }
 }

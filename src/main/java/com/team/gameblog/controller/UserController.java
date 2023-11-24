@@ -57,11 +57,15 @@ public class UserController {
         return "login";
     }
 
-    // 로그아웃후 (로그인or회원가입) 페이지
-    @GetMapping("/logout")
-    public String logout() {
 
-        return "";
+    // 로그아웃
+    @GetMapping("/logout")
+    public ResponseEntity<String> logout(@RequestHeader("Refresh") String refreshToken,
+                                         @AuthenticationPrincipal UserDetailsImpl userDetails) throws CustomException {
+
+        userService.logout(refreshToken,userDetails.getUser());
+
+        return ResponseEntity.ok("로그아웃 완료");
     }
 
 

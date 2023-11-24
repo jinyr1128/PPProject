@@ -1,12 +1,16 @@
 package com.team.gameblog.service;
 
+import com.team.gameblog.config.jwt.JwtUtil;
 import com.team.gameblog.dto.user.PasswordChangeRequestDto;
 import com.team.gameblog.dto.user.ProfileRequestDto;
 import com.team.gameblog.dto.user.ProfileResponseDto;
 import com.team.gameblog.dto.user.SignupRequestDto;
+import com.team.gameblog.entity.RefreshToken;
 import com.team.gameblog.entity.User;
 import com.team.gameblog.exception.CustomException;
+import com.team.gameblog.repository.RefreshTokenRepository;
 import com.team.gameblog.repository.UserRepository;
+import io.jsonwebtoken.JwtException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +26,8 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final RefreshTokenRepository refreshTokenRepository;
+    private final JwtUtil jwtUtil;
 
     @Transactional
     public void signup(SignupRequestDto requestDto) {
@@ -33,7 +39,7 @@ public class UserService {
         }
 
         //이름,이메일 db중복 체크
-        nameEmailCheck(requestDto.getUsername(),requestDto.getEmail());
+        nameEmailCheck(requestDto.getUsername(), requestDto.getEmail());
 
         User user = new User(requestDto, password);
 
@@ -51,7 +57,7 @@ public class UserService {
     public void updateProfile(ProfileRequestDto requestDto, User user) {
 
         //이름,이메일 db중복 체크
-        nameEmailCheck(requestDto.getUsername(),requestDto.getEmail());
+        nameEmailCheck(requestDto.getUsername(), requestDto.getEmail());
 
         user.profileUpdate(requestDto);
     }
@@ -74,6 +80,35 @@ public class UserService {
 
     }
 
+    @Transactional
+    public void logout(String refreshToken, User user) throws CustomException {
+
+        // 리프레시 토큰 유효성 체크
+        try {
+            jwtUtil.validateToken(refreshToken);
+        } catch (JwtException e) {
+            throw new CustomException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+
+        // 리프레시 토큰 정보에서 username 가져오기
+        String refreshName = jwtUtil.getUserInfoFromToken(refreshToken).getSubject();
+
+        // DB에 클라한테 받은 리프레시 토큰이 이미 존재하는지
+        Optional<RefreshToken> refresh = refreshTokenRepository.findByRefresh(refreshToken);
+
+        // 현재 로그인중 유저랑 리프레시 토큰 정보의 유저랑 같은지 체크
+        if (!(refreshName.equals(user.getUsername()))) {
+            throw new CustomException(HttpStatus.FORBIDDEN, "현재 사용자의 Refresh 토큰이 아닙니다.");
+        }
+        // 이미 로그아웃한 상태인지
+        else if (refresh.isPresent()) {
+            throw new CustomException(HttpStatus.BAD_REQUEST, "이미 로그아웃 했습니다.");
+        }
+
+        refreshTokenRepository.save(new RefreshToken(refreshToken));
+
+    }
+
 
     // 이름,이메일 DB에 이미 있는지 중복 체크 메소드
     private void nameEmailCheck(String username, String email) {
@@ -90,13 +125,7 @@ public class UserService {
         }
 
 
-
     }
-
-
-
-
-
 
 }
 

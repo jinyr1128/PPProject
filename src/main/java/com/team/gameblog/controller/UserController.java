@@ -48,13 +48,13 @@ public class UserController {
     @GetMapping("/user/signup")
     public String signupPage() {
 
-        return "";
+        return "login";
     }
 
     // 로그인 페이지
     @GetMapping("/user/login-page")
     public String loginPage() {
-        return "";
+        return "login";
     }
 
     // 로그아웃후 (로그인or회원가입) 페이지

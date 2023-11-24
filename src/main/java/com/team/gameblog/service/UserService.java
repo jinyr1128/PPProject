@@ -32,16 +32,8 @@ public class UserService {
             throw new IllegalArgumentException("비밀번호 확인이 다릅니다.");
         }
 
-        Optional<User> checkUsername = userRepository.findByUsername(requestDto.getUsername());
-        Optional<User> checkemail = userRepository.findByUsername(requestDto.getEmail());
-
-        if (checkUsername.isPresent() && checkemail.isPresent()) {
-            throw new IllegalArgumentException("username,email 둘다 중복입니다");
-        } else if (checkUsername.isPresent()) {
-            throw new IllegalArgumentException("중복된 username 입니다.");
-        } else if (checkemail.isPresent()) {
-            throw new IllegalArgumentException("중복된 email 입니다.");
-        }
+        //이름,이메일 db중복 체크
+        nameEmailCheck(requestDto.getUsername(),requestDto.getEmail());
 
         User user = new User(requestDto, password);
 
@@ -57,6 +49,9 @@ public class UserService {
 
     @Transactional
     public void updateProfile(ProfileRequestDto requestDto, User user) {
+
+        //이름,이메일 db중복 체크
+        nameEmailCheck(requestDto.getUsername(),requestDto.getEmail());
 
         user.profileUpdate(requestDto);
     }
@@ -78,5 +73,30 @@ public class UserService {
         user.passwordUpdate(password);
 
     }
+
+
+    // 이름,이메일 DB에 이미 있는지 중복 체크 메소드
+    private void nameEmailCheck(String username, String email) {
+
+        Optional<User> checkUsername = userRepository.findByUsername(username);
+        Optional<User> checkemail = userRepository.findByUsername(email);
+
+        if (checkUsername.isPresent() && checkemail.isPresent()) {
+            throw new IllegalArgumentException("username,email 둘다 중복입니다");
+        } else if (checkUsername.isPresent()) {
+            throw new IllegalArgumentException("중복된 username 입니다.");
+        } else if (checkemail.isPresent()) {
+            throw new IllegalArgumentException("중복된 email 입니다.");
+        }
+
+
+
+    }
+
+
+
+
+
+
 }
 

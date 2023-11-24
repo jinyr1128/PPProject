@@ -90,6 +90,7 @@ public class UserController {
         return ResponseEntity.ok("프로필 수정 완료");
     }
 
+    //비밀번호 변경
     @ResponseBody
     @PutMapping("/profile/password")
     public ResponseEntity<?> updatePassword(@RequestBody @Valid PasswordChangeRequestDto requestDto,

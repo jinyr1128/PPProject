@@ -29,11 +29,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
-
-        String tokenValue = jwtUtil.getJWtHeader(request);
-
-
-
         log.info("로그인 시작");
         try {
             LoginRequestDto requestDto = new ObjectMapper().readValue(request.getInputStream(), LoginRequestDto.class);
@@ -55,8 +50,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         log.info("로그인 성공 및 JWT 생성");
         String username = ((UserDetailsImpl) authResult.getPrincipal()).getUsername();
 
-        String token = jwtUtil.createToken(username);
-        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, token);
+        String token = jwtUtil.createAccessToken(username);    // 엑세스 토큰 생성
+        String refreshToken = jwtUtil.createRefreshToken(username);   // 리프레시 토큰 생성
+
+        response.addHeader(JwtUtil.Access_Header, token);
+        response.addHeader(JwtUtil.Refresh_Header,refreshToken);
+
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");

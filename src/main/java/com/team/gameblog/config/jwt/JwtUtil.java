@@ -17,7 +17,9 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    public static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String Access_Header = "Access";
+
+    public static final String Refresh_Header = "Refresh";
 
     public static final String BEARER_PREFIX = "Bearer ";
 
@@ -45,7 +47,7 @@ public class JwtUtil {
     //이렇게 분리하면 토큰 정보에 발급일이나 시간 정보가 엑세스랑 리프레시랑 0.xxxxxxx초 차이 있을듯하나 일반 사용자는 못느끼니 지금은 패스~
 
     // 엑세스 토큰 생성
-    public String createToken(String username){
+    public String createAccessToken(String username){
         Date date = new Date();
 
         return BEARER_PREFIX +
@@ -72,9 +74,9 @@ public class JwtUtil {
 
 
     // header 에서 JWT 가져오기
-    public String getJWtHeader(HttpServletRequest request) {
+    public String getJWtAccessHeader(HttpServletRequest request) {
 
-        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+        String bearerToken = request.getHeader(Access_Header);
 
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
             return bearerToken.substring(7);

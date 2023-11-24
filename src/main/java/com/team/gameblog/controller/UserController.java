@@ -64,6 +64,7 @@ public class UserController {
         return "";
     }
 
+
     // 프로필 수정 페이지
     @GetMapping("/profile")
     public ResponseEntity<ProfileResponseDto> getProfileUpdatePage(@AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -72,6 +73,7 @@ public class UserController {
         return ResponseEntity.ok(profileResponseDto);
     }
 
+
     // 프로필 수정
     // patch는 지금 상태로는 복잡해서 일단 put으로
     @ResponseBody
@@ -79,8 +81,7 @@ public class UserController {
     public ResponseEntity<?> updateProfile(@RequestBody @Valid ProfileRequestDto requestDto,
                                            @AuthenticationPrincipal UserDetailsImpl userDetails,
                                            BindingResult bindingResult) {
-
-        // 이미 페이지에 변경전 정보들 폼에 입력된 상태로 가지만 유저가 실수로 지우고 보낼수도 있어서
+        // 이미 페이지에 변경전 정보들 폼에 입력된 상태로 가지만 유저가 실수로 다 지우고 보낼수도 있어서
         if (bindingResult.hasErrors()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getFieldErrors());
         }
@@ -89,6 +90,7 @@ public class UserController {
 
         return ResponseEntity.ok("프로필 수정 완료");
     }
+
 
     //비밀번호 변경
     @ResponseBody

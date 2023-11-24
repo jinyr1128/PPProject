@@ -27,7 +27,7 @@ public class JwtUtil {
     private final long TOKEN_TIME = 30 * 60 * 1000L;
 
     // 리프레시 만료 시간 1일 설정
-    private final  long REFRESH_TOKEN_TIME = 60 * 60 * 24 * 1000L;
+    private final long REFRESH_TOKEN_TIME = 60 * 60 * 24 * 1000L;
 
     @Value("${jwt.secret.key}") // application.properties 에서 설정한 시크릿키 가져오기
     private String secretKey;
@@ -37,9 +37,9 @@ public class JwtUtil {
     private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         byte[] bytes = Base64.getDecoder().decode(secretKey);
-        key= Keys.hmacShaKeyFor(bytes);
+        key = Keys.hmacShaKeyFor(bytes);
 
     }
 
@@ -47,7 +47,7 @@ public class JwtUtil {
     //이렇게 분리하면 토큰 정보에 발급일이나 시간 정보가 엑세스랑 리프레시랑 0.xxxxxxx초 차이 있을듯하나 일반 사용자는 못느끼니 지금은 패스~
 
     // 엑세스 토큰 생성
-    public String createAccessToken(String username){
+    public String createAccessToken(String username) {
         Date date = new Date();
 
         return BEARER_PREFIX +
@@ -60,7 +60,7 @@ public class JwtUtil {
     }
 
     // 리프레시 토큰 생성
-    public String createRefreshToken(String username){
+    public String createRefreshToken(String username) {
         Date date = new Date();
 
         return BEARER_PREFIX +

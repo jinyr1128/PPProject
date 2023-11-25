@@ -79,9 +79,9 @@ public class UserController {
 
 
     // 프로필 수정
-    // patch는 지금 상태로는 복잡해서 일단 put으로
+    // 프로필 수정에서 어떤 필드는 변경하지 않아도 모든 필드 정보 보내는 경우로(만약 프론트가 변경하는 필드 정보만 보내면 patch로 변경)
     @ResponseBody
-    @PutMapping("/profile/{id}")
+    @PutMapping("/profile")
     public ResponseEntity<?> updateProfile(@RequestBody @Valid ProfileRequestDto requestDto,
                                            @AuthenticationPrincipal UserDetailsImpl userDetails,
                                            BindingResult bindingResult) {

@@ -11,13 +11,14 @@ import com.team.gameblog.exception.CustomException;
 import com.team.gameblog.repository.RefreshTokenRepository;
 import com.team.gameblog.repository.UserRepository;
 import io.jsonwebtoken.JwtException;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import java.util.*;
 import java.util.Optional;
 
 @Service
@@ -39,7 +40,8 @@ public class UserService {
         }
 
         //이름,이메일 db중복 체크
-        nameEmailCheck(requestDto.getUsername(), requestDto.getEmail());
+        nameCheck(requestDto.getUsername());
+        emailCheck(requestDto.getEmail());
 
         User user = new User(requestDto, password);
 
@@ -56,8 +58,14 @@ public class UserService {
     @Transactional
     public void updateProfile(ProfileRequestDto requestDto, User user) {
 
-        //이름,이메일 db중복 체크
-        nameEmailCheck(requestDto.getUsername(), requestDto.getEmail());
+        //변경할 필드가 무엇인지 체크 하고 변경할 필드만 DB중복 체크
+        HashMap<String, String> map = requestDto.fieldChangeCheck(user);
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            switch (entry.getKey()){
+                case "username" -> nameCheck(entry.getValue());
+                case "email" -> emailCheck(entry.getValue());
+            }
+        }
 
         user.profileUpdate(requestDto);
     }
@@ -100,7 +108,7 @@ public class UserService {
         if (!(refreshName.equals(user.getUsername()))) {
             throw new CustomException(HttpStatus.FORBIDDEN, "현재 사용자의 Refresh 토큰이 아닙니다.");
         }
-        // 이미 로그아웃한 상태인지
+        // DB에 클라한테 받은 리프레시 토큰이 존재하면 이미 로그아웃한 상태
         else if (refresh.isPresent()) {
             throw new CustomException(HttpStatus.BAD_REQUEST, "이미 로그아웃 했습니다.");
         }
@@ -110,21 +118,20 @@ public class UserService {
     }
 
 
-    // 이름,이메일 DB에 이미 있는지 중복 체크 메소드
-    private void nameEmailCheck(String username, String email) {
-
+    // 이름  DB에 이미 있는지 중복 체크 메소드
+    private void nameCheck(String username) {
         Optional<User> checkUsername = userRepository.findByUsername(username);
-        Optional<User> checkemail = userRepository.findByUsername(email);
-
-        if (checkUsername.isPresent() && checkemail.isPresent()) {
-            throw new IllegalArgumentException("username,email 둘다 중복입니다");
-        } else if (checkUsername.isPresent()) {
+        if (checkUsername.isPresent()) {
             throw new IllegalArgumentException("중복된 username 입니다.");
-        } else if (checkemail.isPresent()) {
+        }
+    }
+
+    // 이름,이메일 DB에 이미 있는지 중복 체크 메소드
+    private void emailCheck(String email) {
+        Optional<User> checkEmail = userRepository.findByEmail(email);
+        if (checkEmail.isPresent()) {
             throw new IllegalArgumentException("중복된 email 입니다.");
         }
-
-
     }
 
 }

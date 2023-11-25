@@ -29,7 +29,7 @@ public class User {
     @Column(nullable = false, length = 100)
     private String password;
 
-    @Column(nullable = false, length = 300)
+    @Column(length = 300)
     private String introduction;
 
     @OneToMany(mappedBy = "user")
@@ -38,20 +38,22 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Comment> commentList = new ArrayList<>();
 
-
+    //회원가입시 생성자
     public User(SignupRequestDto requestDto, String password) {
         this.username = requestDto.getUsername();
         this.email = requestDto.getEmail();
         this.password = password;
-        this.introduction = requestDto.getProfile();
+        this.introduction = requestDto.getIntroduction();
     }
 
+    //유저 정보 변경
     public void profileUpdate(ProfileRequestDto requestDto) {
         this.username = requestDto.getUsername();
         this.email = requestDto.getEmail();
         this.introduction = requestDto.getIntroduction();
     }
 
+    //비밀번호 변경
     public void passwordUpdate(String password) {
         this.password = password;
     }

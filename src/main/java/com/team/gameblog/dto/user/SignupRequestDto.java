@@ -26,7 +26,7 @@ public class SignupRequestDto {
     @NotBlank
     private String username;
 
-    @Max(value = 300,message = "최대 300자 까지 입니다.")
-    private String profile;
+    @Size(max = 300,message = "최대 300자 까지 입니다.")
+    private String introduction;
 
 }

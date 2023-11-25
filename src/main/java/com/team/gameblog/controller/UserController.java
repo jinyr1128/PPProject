@@ -47,13 +47,14 @@ public class UserController {
     //회원가입 페이지
     @GetMapping("/user/signup")
     public String signupPage() {
-
+        System.out.println("회원가입 페이지 시작");
         return "login";
     }
 
     // 로그인 페이지
     @GetMapping("/user/login-page")
     public String loginPage() {
+        System.out.println("로그인 페이지 시작");
         return "login";
     }
 
@@ -72,10 +73,11 @@ public class UserController {
 
     // 프로필 수정 페이지
     @ResponseBody
-    @GetMapping("/profile")
+    @GetMapping("/profile/page")
     public ResponseEntity<ProfileResponseDto> getProfileUpdatePage(@AuthenticationPrincipal UserDetailsImpl userDetails) {
 
         ProfileResponseDto profileResponseDto = userService.getProfileUpdatePage(userDetails.getUser());
+
         return ResponseEntity.ok(profileResponseDto);
     }
 
@@ -92,9 +94,9 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getFieldErrors());
         }
 
-        userService.updateProfile(requestDto, userDetails.getUser());
+        ProfileResponseDto profileResponseDto = userService.updateProfile(requestDto, userDetails.getUser());
 
-        return ResponseEntity.ok("프로필 수정 완료");
+        return ResponseEntity.ok(profileResponseDto);
     }
 
 

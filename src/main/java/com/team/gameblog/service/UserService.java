@@ -56,7 +56,7 @@ public class UserService {
 
 
     @Transactional
-    public void updateProfile(ProfileRequestDto requestDto, User user) {
+    public ProfileResponseDto updateProfile(ProfileRequestDto requestDto, User user) {
 
         //변경할 필드가 무엇인지 체크 하고 변경할 필드만 DB중복 체크
         HashMap<String, String> map = requestDto.fieldChangeCheck(user);
@@ -68,6 +68,8 @@ public class UserService {
         }
 
         user.profileUpdate(requestDto);
+
+        return new ProfileResponseDto(user);
     }
 
     @Transactional

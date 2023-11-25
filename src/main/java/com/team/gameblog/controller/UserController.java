@@ -59,6 +59,7 @@ public class UserController {
 
 
     // 로그아웃
+    @ResponseBody
     @GetMapping("/logout")
     public ResponseEntity<String> logout(@RequestHeader("Refresh") String refreshToken,
                                          @AuthenticationPrincipal UserDetailsImpl userDetails) throws CustomException {
@@ -70,6 +71,7 @@ public class UserController {
 
 
     // 프로필 수정 페이지
+    @ResponseBody
     @GetMapping("/profile")
     public ResponseEntity<ProfileResponseDto> getProfileUpdatePage(@AuthenticationPrincipal UserDetailsImpl userDetails) {
 

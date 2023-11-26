@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
@@ -38,10 +39,10 @@ public class JwtUtil {
 
     @PostConstruct
     public void init() {
-        byte[] bytes = Base64.getDecoder().decode(secretKey);
-        key = Keys.hmacShaKeyFor(bytes);
-
+        // secretKey를 Base64 디코딩하지 않고 직접 사용
+        key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
     }
+
 
     //한 메소드에 엑세스,리프레시 동시에 생성하면 엑세스 만료시 엑세스만 생성하는경우 쓸모없는 리프레시도 동시에 생성하니 엑세스,리프레시 메소드 생성 분리
     //이렇게 분리하면 토큰 정보에 발급일이나 시간 정보가 엑세스랑 리프레시랑 0.xxxxxxx초 차이 있을듯하나 일반 사용자는 못느끼니 지금은 패스~

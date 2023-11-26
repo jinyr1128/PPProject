@@ -61,10 +61,10 @@ public class UserController {
 
     // 로그아웃
     @ResponseBody
-    @GetMapping("/logout")
+    @GetMapping("/logout/page")
     public ResponseEntity<String> logout(@RequestHeader("Refresh") String refreshToken,
                                          @AuthenticationPrincipal UserDetailsImpl userDetails) throws CustomException {
-
+        System.out.println("로그아웃 컨트롤 시작");
         userService.logout(refreshToken,userDetails.getUser());
 
         return ResponseEntity.ok("로그아웃 완료");
@@ -83,7 +83,7 @@ public class UserController {
 
 
     // 프로필 수정
-    // 프로필 수정에서 어떤 필드는 변경하지 않아도 모든 필드 정보 보내는 경우로(만약 프론트가 변경하는 필드 정보만 보내면 patch로 변경)
+    // put,patch는 프론트랑 협의후 결정 해야하는데 현재 프론트에서 한번에 변경 모든 필드를 보내도록 해서 put
     @ResponseBody
     @PutMapping("/profile")
     public ResponseEntity<?> updateProfile(@RequestBody @Valid ProfileRequestDto requestDto,

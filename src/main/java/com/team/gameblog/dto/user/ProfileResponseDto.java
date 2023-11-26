@@ -2,7 +2,9 @@ package com.team.gameblog.dto.user;
 
 import com.team.gameblog.entity.User;
 import jakarta.validation.constraints.*;
+import lombok.Getter;
 
+@Getter
 public class ProfileResponseDto {
 
     private Long id;

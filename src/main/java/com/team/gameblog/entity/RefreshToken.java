@@ -17,7 +17,7 @@ public class RefreshToken {
     @Column(nullable = false,  unique = true)
     private String refresh;
 
-    public RefreshToken(String refresh) {
-        this.refresh = refresh;
+    public RefreshToken(String tokenValue) {
+        this.refresh = tokenValue;
     }
 }

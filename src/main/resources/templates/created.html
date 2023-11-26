@@ -21,7 +21,6 @@
     function createPost() {
         var title = $("#postTitle").val();
         var content = $("#postContent").val();
-        // AJAX 요청으로 게시물 정보 전송
         $.ajax({
             url: '/api/articles',
             type: 'POST',
@@ -36,6 +35,7 @@
         });
     }
 </script>
+
 
 </body>
 </html>

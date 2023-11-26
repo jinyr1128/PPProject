@@ -62,7 +62,7 @@ public class UserService {
         //변경할 필드가 무엇인지 체크 하고 변경할 필드만 DB중복 체크
         HashMap<String, String> map = requestDto.fieldChangeCheck(user);
         for (Map.Entry<String, String> entry : map.entrySet()) {
-            switch (entry.getKey()){
+            switch (entry.getKey()) {
                 case "username" -> nameCheck(entry.getValue());
                 case "email" -> emailCheck(entry.getValue());
             }
@@ -82,7 +82,7 @@ public class UserService {
         String password = passwordEncoder.encode(requestDto.getNewPassword());
 
         //로그인중 유저 패스워드랑 request에 담긴 예전 패스워드랑 같은지 체크
-        if( !(passwordEncoder.matches(requestDto.getOldPassword(),user.getPassword()))){
+        if (!(passwordEncoder.matches(requestDto.getOldPassword(), user.getPassword()))) {
             throw new CustomException(HttpStatus.FORBIDDEN, "현재 비밀번호가 일치하지 않습니다");
         }
 
@@ -92,7 +92,8 @@ public class UserService {
         }
 
         user.passwordUpdate(password);
-
+        // updateProfile() 처럼 마찬가지로 일부로 직접 save방식 선택
+        userRepository.save(user);
     }
 
     @Transactional

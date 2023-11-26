@@ -16,7 +16,8 @@ public abstract class Timestamped {
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     @Column(updatable = false)
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
+
 
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate

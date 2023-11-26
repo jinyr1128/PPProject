@@ -5,9 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-public class Article {
+public class Article extends Timestamped{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,8 +20,15 @@ public class Article {
     @Column(nullable = false)
     private String content;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user; // 게시물 작성자
+
+    @OneToMany(mappedBy = "article")
+    private List<Comment> commentList = new ArrayList<>();
+
+
 
     public Long getId() {
         return id;

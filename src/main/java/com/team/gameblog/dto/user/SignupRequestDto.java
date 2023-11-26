@@ -1,9 +1,6 @@
 package com.team.gameblog.dto.user;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 
 @Getter
@@ -11,7 +8,7 @@ public class SignupRequestDto {
 
 
     @NotBlank
-    @Email
+    @Email(message = "이메일 형식에 맞게 적어주세요")
     private String email;
 
 
@@ -24,12 +21,12 @@ public class SignupRequestDto {
     private String passwordCheck;
 
 
-    @Pattern(regexp ="^[a-z]+[0-9]*$",message ="아이디 허용문자에 맞게 적어주세요")
-    @Size(min=4, max=10,message ="아이디 4자 이상 10자 이하이어야 합니다")
+    @Pattern(regexp ="^[a-z]+[0-9]*$",message ="닉네임 허용문자에 맞게 적어주세요")
+    @Size(min=4, max=10,message ="닉네임 4자 이상 10자 이하이어야 합니다")
     @NotBlank
     private String username;
 
-
-    private String profile;
+    @Size(max = 300,message = "최대 300자 까지 입니다.")
+    private String introduction;
 
 }

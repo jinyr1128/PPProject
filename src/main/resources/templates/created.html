@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>PlayPalace - Create Post</title>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/css/create.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -21,7 +22,6 @@
     function createPost() {
         var title = $("#postTitle").val();
         var content = $("#postContent").val();
-        // AJAX 요청으로 게시물 정보 전송
         $.ajax({
             url: '/api/articles',
             type: 'POST',
@@ -36,6 +36,5 @@
         });
     }
 </script>
-
 </body>
 </html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PlayPalace - Home</title>
+
+    <style>
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .post {
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+    </style>
+    <link rel="stylesheet" href="../static/css/play_styles.css">
+</head>
+<body>
+<header>
+    <h1>PlayPalace</h1>
+    <nav>
+        <button onclick="profile.href='profile.html'">Profile</button>
+    </nav>
+</header>
+<main id="posts">
+    <!-- 게시물은 여기에 동적으로 추가됩니다 -->
+</main>
+<footer>
+    <p>© 2023 PlayPalace. All rights reserved.</p>
+</footer>
+
+<script>
+    function loadPosts() {
+        fetch('/api/articles')
+            .then(response => response.json())
+            .then(posts => {
+                // 게시물 처리 로직
+            })
+            .catch(error => console.error('Error loading posts:', error));
+    }
+    document.addEventListener('DOMContentLoaded', loadPosts);
+</script>
+
+</body>
+</html>

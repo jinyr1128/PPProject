@@ -8,7 +8,9 @@ import java.util.Collection;
 
 public class UserDetailsImpl implements UserDetails {
     private final User user;
-
+    public Long getId() {
+        return user.getId();
+    }
     public UserDetailsImpl(User user) {
         this.user = user;
     }
@@ -29,7 +31,7 @@ public class UserDetailsImpl implements UserDetails {
 
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() { //사용자 현재 권한 리턴
+    public Collection<? extends GrantedAuthority> getAuthorities() { //프젝에 권한 관련 없으니 null
 
         return null;
     }

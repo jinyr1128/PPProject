@@ -17,7 +17,13 @@ public class Comment extends Timestamped {
     @Column(nullable = false, length = 300)
     private String comment;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "article_id")
+    private Article article;
 
 
 }

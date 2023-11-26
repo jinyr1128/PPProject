@@ -6,11 +6,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommentService {
     public CommentResponseDto createComment() {
+        return  null;
     }
 
     public CommentResponseDto updateComment() {
+        return  null;
     }
 
     public void deleteComment() {
+
     }
 }

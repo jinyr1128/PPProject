@@ -67,14 +67,16 @@ public class SecurityConfig {
         http.authorizeHttpRequests((authorizeHttpRequests) ->
                 authorizeHttpRequests
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers("/api/user/**").permitAll()
+                        .requestMatchers("/user/**").permitAll()
                         .anyRequest().authenticated()
         );
 
-        // 나중에 필요 없으면 삭제
-//        http.addFilterBefore(jwtAuthorizationFilter(), JwtExceptionFilter.class);
-//        http.addFilterBefore(jwtExceptionFilter(),JwtAuthenticationFilter.class);
-//        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.formLogin((formLogin) ->
+                formLogin
+                        .loginPage("/user/login-page").permitAll()
+        );
+
+
 
         http.addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class);
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 public class Comment extends Timestamped {
-가
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

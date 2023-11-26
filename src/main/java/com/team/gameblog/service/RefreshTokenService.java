@@ -5,7 +5,6 @@ import com.team.gameblog.entity.RefreshToken;
 import com.team.gameblog.exception.CustomException;
 import com.team.gameblog.repository.RefreshTokenRepository;
 import io.jsonwebtoken.JwtException;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class RefrshTokenService {
+public class RefreshTokenService {
 
     private final JwtUtil jwtUtil;
     private final RefreshTokenRepository refreshTokenRepository;

@@ -2,7 +2,7 @@ package com.team.gameblog.controller;
 
 import com.team.gameblog.config.jwt.JwtUtil;
 import com.team.gameblog.exception.CustomException;
-import com.team.gameblog.service.RefrshTokenService;
+import com.team.gameblog.service.RefreshTokenService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RefrshTokenController {
 
-    private final RefrshTokenService refrshTokenService;
+    private final RefreshTokenService refrshTokenService;
 
     @GetMapping("/user/refresh-token")
     public ResponseEntity<String> reissuanceAccessToken(

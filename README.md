@@ -5,6 +5,7 @@
 PPProject는 Java와 Spring, Spring Security, 그리고 Gradle을 이용하여 구현한 웹 애플리케이션이다.<br>
 사용자 인증, 프로필 관리, 게시물 및 댓
 글 CRUD 기능, 뉴스 피드 기능 등을 제공한다.
+---
 ## 기능
 ### 사용자 인증 기능
 - 회원가입 기능: 새로운 사용자는 ID와 비밀번호를 이용해 서비스에 가입할 수 있다. 비밀번호는 암호화되어 저장된다.
@@ -19,7 +20,7 @@ PPProject는 Java와 Spring, Spring Security, 그리고 Gradle을 이용하여 �
 ### 댓글 CRUD 기능
 - 댓글 작성, 조회, 수정, 삭제 기능: 사용자는 게시물에 댓글을 작성하고, 자신이 작성한 댓글을 수정하거나 삭제할 수 있다. 인가(Authorization) 개념이 적용된다.
 - 댓글 작성, 수정, 삭제 시 새로고침 기능: 댓글 작성, 수정, 삭제를 할 때마다 조회 API를 다시 호출하여 최신의 댓글 목록을 화면에 보여준다.
-
+---
 ## 기술 스택
 - ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white) JAR 17
 -  ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white) 
@@ -34,6 +35,8 @@ PPProject는 Java와 Spring, Spring Security, 그리고 Gradle을 이용하여 �
 - 	![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ## 구현 방법
  이 프로젝트는 Java와 Spring, Spring Security, 그리고 Gradle을 이용하여 구현되었다.<br> 사용자 인증은 Spring Security를 이용하였으며, 데이터베이스 연동은 Spring Data JPA를 이용하였다. <br>또한, Gradle을 이용하여 프로젝트의 의존성을 관리하였다.
+
+---
 ## 설치 및 실행 방법
 ### 필요 사항
 - Java 11 이상
@@ -42,8 +45,11 @@ PPProject는 Java와 Spring, Spring Security, 그리고 Gradle을 이용하여 �
 
 ### 실행 방법
 이 프로젝트를 실행하려면 Java와 Gradle이 설치되어 있어야 한다. <br>그 후, 소스 코드를 클론하고 Gradle을 이용하여 빌드하면 된다. 빌드가 완료되면 생성된 jar 파일을 이용하여 서버를 실행할 수 있다.
+
+---
 # API 명세서
 
+---
 ## 게시글 관련 API
 
 ### 게시글 작성
@@ -89,9 +95,10 @@ PPProject는 Java와 Spring, Spring Security, 그리고 Gradle을 이용하여 �
 - Method: `DELETE`
 - URL: `/api/comments/{commentId}`
 - Response: `204`
-
+---
 ## 사용자 관련 API
 
+---
 ### 회원가입
 - Method: `POST`
 - URL: `/user/signup`
@@ -134,16 +141,25 @@ PPProject는 Java와 Spring, Spring Security, 그리고 Gradle을 이용하여 �
 - Method: `GET`
 - URL: `/user/refresh-token`
 - Response: `200, 메시지`
+- --
 ![API1.PNG](img%2FAPI1.PNG)
 ![API2.PNG](img%2FAPI2.PNG)
+---
 ## ERD
 ![project_ERD.PNG](img%2Fproject_ERD.PNG)
+
+---
+
 ## 디렉토리 구조
 ![스크린샷 2023-11-27 오전 12.07.33.png](img%2F%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202023-11-27%20%EC%98%A4%EC%A0%84%2012.07.33.png)
 ![스크린샷 2023-11-27 오전 12.07.45.png](img%2F%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202023-11-27%20%EC%98%A4%EC%A0%84%2012.07.45.png)
 
+---
 
 ## 실행화면
+
+---
+
 ### 로그인 페이지
 ![스크린샷 2023-11-27 오전 12.49.59.png](img%2F%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202023-11-27%20%EC%98%A4%EC%A0%84%2012.49.59.png)
 ### 회원가입 페이지
@@ -155,6 +171,7 @@ PPProject는 Java와 Spring, Spring Security, 그리고 Gradle을 이용하여 �
 ### 프로필 수정 페이지
 ![스크린샷 2023-11-27 오전 12.50.57.png](img%2F%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202023-11-27%20%EC%98%A4%EC%A0%84%2012.50.57.png)
 
+---
 ## 팀원별 회고
 ### 진유록
 - 회고

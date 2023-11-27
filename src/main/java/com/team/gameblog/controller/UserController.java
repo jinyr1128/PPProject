@@ -47,8 +47,8 @@ public class UserController {
 
     //회원가입 페이지
     @GetMapping("/user/signup")
-    public String signupPage(Model model){
-        model.addAttribute("signupRequestDto",new SignupRequestDto());
+    public String signupPage(Model model) {
+        model.addAttribute("signupRequestDto", new SignupRequestDto());
         System.out.println("회원가입 페이지 시작");
         return "login";
     }
@@ -67,7 +67,7 @@ public class UserController {
     public ResponseEntity<String> logout(@RequestHeader("Refresh") String refreshToken,
                                          @AuthenticationPrincipal UserDetailsImpl userDetails) throws CustomException {
         System.out.println("로그아웃 컨트롤 시작");
-        userService.logout(refreshToken,userDetails.getUser());
+        userService.logout(refreshToken, userDetails.getUser());
 
         return ResponseEntity.ok("로그아웃 완료");
     }

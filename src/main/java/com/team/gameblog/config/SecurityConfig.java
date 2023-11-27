@@ -52,7 +52,6 @@ public class SecurityConfig {
     }
 
 
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -75,7 +74,6 @@ public class SecurityConfig {
                 formLogin
                         .loginPage("/user/login-page").permitAll()
         );
-
 
 
         http.addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class);

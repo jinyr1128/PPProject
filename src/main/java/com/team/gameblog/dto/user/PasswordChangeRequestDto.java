@@ -8,13 +8,13 @@ import lombok.Getter;
 @Getter
 public class PasswordChangeRequestDto {
 
-    @Pattern(regexp ="[a-zA-Z0-9]*$",message ="비밀번호 허용 문자에 맞게 해주세요")
-    @Size(min=8, max=15,message ="비밀번호 8자 이상 15자 이하이어야 합니다")
+    @Pattern(regexp = "[a-zA-Z0-9]*$", message = "비밀번호 허용 문자에 맞게 해주세요")
+    @Size(min = 8, max = 15, message = "비밀번호 8자 이상 15자 이하이어야 합니다")
     @NotBlank
     private String oldPassword;
 
-    @Pattern(regexp ="[a-zA-Z0-9]*$",message ="비밀번호 허용 문자에 맞게 해주세요")
-    @Size(min=8, max=15,message ="비밀번호 8자 이상 15자 이하이어야 합니다")
+    @Pattern(regexp = "[a-zA-Z0-9]*$", message = "비밀번호 허용 문자에 맞게 해주세요")
+    @Size(min = 8, max = 15, message = "비밀번호 8자 이상 15자 이하이어야 합니다")
     @NotBlank
     private String newPassword;
 

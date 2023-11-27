@@ -22,7 +22,7 @@ public abstract class Timestamped {
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     @Column
-    private  LocalDateTime modifiedAt;
+    private LocalDateTime modifiedAt;
 
 
 }

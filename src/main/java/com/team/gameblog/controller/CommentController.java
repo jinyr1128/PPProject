@@ -26,13 +26,10 @@ public class CommentController {
         Comment comment = new Comment();
         comment.setComment(commentRequestDto.getComment());
         comment.setUser(userDetails.getUser());
-
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new ResourceNotFoundException("Article not found"));
         comment.setArticle(article);
-
         Comment savedComment = commentService.createComment(comment);
-
         return convertToCommentResponseDto(savedComment);
     }
 

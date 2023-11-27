@@ -3,10 +3,12 @@ package com.team.gameblog.controller;
 import com.team.gameblog.dto.article.ArticleRequestDto;
 import com.team.gameblog.dto.article.ArticleResponseDto;
 import com.team.gameblog.entity.Article;
+import com.team.gameblog.security.UserDetailsImpl;
 import com.team.gameblog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -44,12 +46,12 @@ public class ArticleController {
 
     // 게시물 작성
     @PostMapping
-    public ResponseEntity<ArticleResponseDto> createArticle(@RequestBody ArticleRequestDto articleDto) {
+    public ResponseEntity<ArticleResponseDto> createArticle(@RequestBody ArticleRequestDto articleDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         Article article = new Article();
         article.setTitle(articleDto.getTitle());
         article.setContent(articleDto.getContent());
         // TODO: 현재 로그인한 사용자 정보 설정
-        // article.setUser(user);
+        article.setUser(userDetails.getUser());
         Article savedArticle = articleService.createArticle(article);
         ArticleResponseDto newArticleDto = new ArticleResponseDto(savedArticle);
         return new ResponseEntity<>(newArticleDto, HttpStatus.CREATED);

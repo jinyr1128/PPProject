@@ -18,6 +18,7 @@ public class CommentService {
     public Optional<Comment> findById(Long id) {
         return commentRepository.findById(id);
     }
+
     // 댓글 생성
     public Comment createComment(Comment comment) {
         return commentRepository.save(comment);

@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity<Object> handleNullPoint(NullPointerException e){
+    public ResponseEntity<Object> handleNullPoint(NullPointerException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 

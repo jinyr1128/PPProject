@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Article extends Timestamped{
+public class Article extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,7 +27,6 @@ public class Article extends Timestamped{
 
     @OneToMany(mappedBy = "article")
     private List<Comment> commentList = new ArrayList<>();
-
 
 
     public Long getId() {

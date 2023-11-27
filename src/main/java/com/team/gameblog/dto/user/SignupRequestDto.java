@@ -12,8 +12,8 @@ public class SignupRequestDto {
     private String email;
 
 
-    @Pattern(regexp ="[a-zA-Z0-9]*$",message ="비밀번호 허용 문자에 맞게 해주세요")
-    @Size(min=8, max=15,message ="비밀번호 8자 이상 15자 이하이어야 합니다")
+    @Pattern(regexp = "[a-zA-Z0-9]*$", message = "비밀번호 허용 문자에 맞게 해주세요")
+    @Size(min = 8, max = 15, message = "비밀번호 8자 이상 15자 이하이어야 합니다")
     @NotBlank
     private String password;
 
@@ -21,12 +21,12 @@ public class SignupRequestDto {
     private String passwordCheck;
 
 
-    @Pattern(regexp ="^[a-z]+[0-9]*$",message ="닉네임 허용문자에 맞게 적어주세요")
-    @Size(min=4, max=10,message ="닉네임 4자 이상 10자 이하이어야 합니다")
+    @Pattern(regexp = "^[a-z]+[0-9]*$", message = "닉네임 허용문자에 맞게 적어주세요")
+    @Size(min = 4, max = 10, message = "닉네임 4자 이상 10자 이하이어야 합니다")
     @NotBlank
     private String username;
 
-    @Size(max = 300,message = "최대 300자 까지 입니다.")
+    @Size(max = 300, message = "최대 300자 까지 입니다.")
     private String introduction;
 
 }

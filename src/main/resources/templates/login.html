@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <style>@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css");
 
 * {
@@ -172,14 +172,15 @@ span {
 }</style>
 <head>
   <title>PlayPalace - Login</title>
-  <link rel="stylesheet" th:href="@{/static/css/login.css}">
+  <link rel="stylesheet" href="/static/css/login.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div class="wrapper">
   <div class="container">
     <div class="sign-up-container">
-      <form id="signup-form" th:action="@{/user/signup}" method="post" >
+      <!-- 타임리프 액션 제거 -->
+      <form id="signup-form">
         <h1>Create Account</h1>
         <span>or use your email for registration</span>
         <input type="text" id="signupUsername" placeholder="Username" >
@@ -187,36 +188,36 @@ span {
         <input type="password" id="signupPassword" placeholder="Password" >
         <input type="password" id="passwordCheck" placeholder="Confirm Password" >
         <textarea id="signupIntroduction" placeholder="Introduce yourself" ></textarea>
-        <input type="submit" th:onclick="'signup()'" value="Sign Up">
+        <button type="button" onclick="signup()">Sign Up</button>
       </form>
     </div>
     <div class="sign-in-container">
-      <form id="signinForm" th:action="@{/user/login}" method="post" >
+      <!-- 타임리프 액션 제거 -->
+      <form id="signinForm">
         <h1>Sign In</h1>
         <span>or use your account</span>
         <input type="text" id="signinUsername" placeholder="Username" >
         <input type="password" id="signinPassword" placeholder="Password">
-        <input type="submit" th:onclick="'signip()'" value="Sign In">
+        <button type="button" onclick="signin()">Sign In</button>
       </form>
     </div>
     <div class="overlay-container">
       <div class="overlay-left">
         <h1>Hello, Friend</h1>
         <p>Enter your personal details and talk to us about the game</p>
-        <button id="signIn" class="overlay_btn" th:onclick="'signin()'">Sign In</button>
+        <button id="signIn" class="overlay_btn" onclick="signin()">Sign In</button>
       </div>
       <div class="overlay-right">
         <h1>Welcome Back</h1>
         <p>To keep connected with us please login with your personal info</p>
-        <button id="signUp" class="overlay_btn" th:onclick="'signup()'">Sign Up</button>
+        <button id="signUp" class="overlay_btn" onclick="signup()">Sign Up</button>
       </div>
     </div>
   </div>
 </div>
 
-<script th:inline="javascript">
-  $("#signinForm").submit((e) =>{
-    e.preventDefault();
+<script>
+  function signin() {
     var username = document.getElementById('signinUsername').value;
     var password = document.getElementById('signinPassword').value;
 
@@ -237,19 +238,15 @@ span {
         alert('서버 에러');
       }
     });
-  })
+  }
 
-
-
-  $("#signup-form").submit((e) => {
-    e.preventDefault();
-
+  function signup() {
     var username = document.getElementById('signupUsername').value;
     var email = document.getElementById('signupEmail').value;
     var password = document.getElementById('signupPassword').value;
     var passwordCheck = document.getElementById('passwordCheck').value;
+    var introduction = document.getElementById('signupIntroduction').value;
 
-    // 비밀번호 확인
     if(password !== passwordCheck) {
       alert('비밀번호가 일치하지 않습니다.');
       return;
@@ -259,7 +256,7 @@ span {
     $.ajax({
       url: "/user/signup",
       type: 'post',
-      data: JSON.stringify({username: username, email: email, password: password}),
+      data: JSON.stringify({username: username, email: email, password: password, passwordCheck: passwordCheck,introduction: introduction }),
       contentType: "application/json",
       success: function(data) {
         if(data.success) {
@@ -272,7 +269,8 @@ span {
         alert('서버 에러');
       }
     });
-  })
+  }
+
   const signUpBtn = document.getElementById("signUp");
   const signInBtn = document.getElementById("signIn");
   const container = document.querySelector(".container");
@@ -284,7 +282,6 @@ span {
   signInBtn.addEventListener("click", () => {
     container.classList.remove("right-panel-active");
   });
-
 </script>
 </body>
 </html>

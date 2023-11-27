@@ -70,7 +70,7 @@ public class UserService {
 
         user.profileUpdate(requestDto);
 
-        //유저를 매개변수로 받아와서 더티체킹이 불가라 직접 일부로 save방식 선택
+        //유저를 매개변수로 받아와서 더티체킹이 불가라 일부로 직접 save방식 선택
         userRepository.save(user);
 
         return new ProfileResponseDto(user);
@@ -92,8 +92,11 @@ public class UserService {
         }
 
         user.passwordUpdate(password);
+
+
         // updateProfile() 처럼 마찬가지로 일부로 직접 save방식 선택
         userRepository.save(user);
+
     }
 
     @Transactional

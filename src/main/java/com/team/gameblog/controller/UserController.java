@@ -20,6 +20,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,7 +47,8 @@ public class UserController {
 
     //회원가입 페이지
     @GetMapping("/user/signup")
-    public String signupPage() {
+    public String signupPage(Model model){
+        model.addAttribute("signupRequestDto",new SignupRequestDto());
         System.out.println("회원가입 페이지 시작");
         return "login";
     }
